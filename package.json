@@ -1,0 +1,15 @@
+{
+  "name": "guess_the_dj",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gcloud functions deploy guess_the_dj__play --runtime nodejs16 --trigger-http --allow-unauthenticated"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^5.18.2"
+  },
+  "description": ""
+}
