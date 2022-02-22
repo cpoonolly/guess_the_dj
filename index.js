@@ -27,22 +27,28 @@ const listFileNames = async (prefix, showSubDirectories = false) => {
 };
 
 const writeFile = async (filename, data) => {
+  console.log(`writeFile: ${filename}`);
+
   await storage.bucket(BUCKET_NAME).file(filename).save(JSON.stringify(data));
 };
 
 const readFile = async (filename) => {
-  const data = await storage.bucket(BUCKET_NAME).file(filename).download();
+  console.log(`readFile: ${filename}`);
 
+  const data = await storage.bucket(BUCKET_NAME).file(filename).download();
   return JSON.parse(data);
 };
 
 const deleteFile = async (filename) => {
+  console.log(`deleteFile: ${filename}`);
+
   await storage.bucket(BUCKET_NAME).file(filename).delete();
 };
 
 const fileExists = async (filename) => {
-  const [exists] = await storage.bucket(BUCKET_NAME).file(filename).exists();
-  return exists
+  console.log(`fileExists: ${filename}`);
+
+  return await storage.bucket(BUCKET_NAME).file(filename).exists()[0];
 }
 
 
@@ -144,7 +150,7 @@ exports.playSong = async (req, res) => {
   let message;
   
   try {
-    if (!(await isDailySongChoosen())) {
+    if (!(await isDailySongChoosen(today))) {
       throw Error('DJ not choosen yet. Please run `\\dj_choose` to choose today\'s DJ.');
     }
 
@@ -210,19 +216,19 @@ exports.playSong = async (req, res) => {
       blocks: [
         {
           type: 'section',
-          text: {type: 'mrkdown', text: 'A DJ has been choosen!'}
+          text: {type: 'mrkdwn', text: 'A DJ has been choosen!'}
         },
         {
           type: 'section',
-          text: {type: 'mrkdown', text: 'Run `\\song_play` to hear today\'s song.'}
+          text: {type: 'mrkdwn', text: 'Run `\\song_play` to hear today\'s song.'}
         },
         {
           type: 'section',
-          text: {type: 'mrkdown', text: 'Run `\\dj_guess` to guess who\'s today\'s DJ.'}
+          text: {type: 'mrkdwn', text: 'Run `\\dj_guess` to guess who\'s today\'s DJ.'}
         },
         {
           type: 'section',
-          text: {type: 'mrkdown', text: 'Run`\\dj_reveal` to reveal today\'s DJ & everyone\'s guesses.'}
+          text: {type: 'mrkdwn', text: 'Run `\\dj_reveal` to reveal today\'s DJ & everyone\'s guesses.'}
         }
       ]
     }
@@ -247,7 +253,7 @@ exports.playSong = async (req, res) => {
 
   try {
     // Check if today's dj has been choosen
-    if (!(await isDailySongChoosen())) {
+    if (!(await isDailySongChoosen(today))) {
       throw Error('DJ not choosen yet. Please run `\\dj_choose` to choose today\'s DJ.');
     }
 
@@ -271,11 +277,11 @@ exports.playSong = async (req, res) => {
       blocks: [
         {
           type: 'section',
-          text: {type: 'mrkdown', text: `Today's DJ is ${djName}!!!`}
+          text: {type: 'mrkdwn', text: `Today's DJ is ${djName}!!!`}
         },
         ...guesses.map(({user, name, guess, guessName}) => ({
           type: 'section',
-          text: {type: 'mrkdown', text: `${name} guessed ${guessName}! ${user === guess ? ':white_check_mark:' : ':x:'}`}
+          text: {type: 'mrkdwn', text: `${name} guessed ${guessName}! ${user === guess ? ':white_check_mark:' : ':x:'}`}
         }))
       ]
     };
