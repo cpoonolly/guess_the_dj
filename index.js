@@ -48,7 +48,13 @@ const deleteFile = async (filename) => {
 const fileExists = async (filename) => {
   console.log(`fileExists: ${filename}`);
 
-  return await storage.bucket(BUCKET_NAME).file(filename).exists()[0];
+  const result = await storage.bucket(BUCKET_NAME).file(filename).exists();
+  const [exists] = result;
+
+  console.log(`fileExists (result): ${result}`);
+  console.log(`fileExists (exists): ${exists}`)
+    
+  return exists;
 }
 
 
