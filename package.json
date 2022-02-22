@@ -4,7 +4,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "./deploy.sh"
+    "deploy": "npm run deploy:play && npm run deploy:submit && npm run deploy:guess && npm run deploy:reveal",
+    "deploy:play": "gcloud functions deploy guess_the_dj__play --entry-point play --runtime nodejs16 --trigger-http --allow-unauthenticated",
+    "deploy:submit": "gcloud functions deploy guess_the_dj__submit --entry-point submit --runtime nodejs16 --trigger-http --allow-unauthenticated",
+    "deploy:guess": "gcloud functions deploy guess_the_dj__guess --entry-point guess --runtime nodejs16 --trigger-http --allow-unauthenticated",
+    "deploy:reveal": "gcloud functions deploy guess_the_dj__reveal --entry-point reveal --runtime nodejs16 --trigger-http --allow-unauthenticated"
+    
   },
   "author": "",
   "license": "ISC",
