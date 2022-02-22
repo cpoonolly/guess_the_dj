@@ -4,17 +4,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "npm run deploy:play && npm run deploy:submit && npm run deploy:guess && npm run deploy:reveal",
-    "deploy:play": "gcloud functions deploy guess_the_dj__play --entry-point play --runtime nodejs16 --trigger-http --allow-unauthenticated",
-    "deploy:submit": "gcloud functions deploy guess_the_dj__submit --entry-point submit --runtime nodejs16 --trigger-http --allow-unauthenticated",
-    "deploy:guess": "gcloud functions deploy guess_the_dj__guess --entry-point guess --runtime nodejs16 --trigger-http --allow-unauthenticated",
-    "deploy:reveal": "gcloud functions deploy guess_the_dj__reveal --entry-point reveal --runtime nodejs16 --trigger-http --allow-unauthenticated"
-    
+    "deploy": "npm run deploy:playSong && npm run deploy:suggestSong && npm run deploy:chooseDJ && npm run deploy:guessDJ && npm run deploy:revealDJ",
+    "deploy:playSong": "gcloud functions deploy guess_the_dj__playSong --entry-point playSong --runtime nodejs16 --trigger-http --allow-unauthenticated",
+    "deploy:suggestSong": "gcloud functions deploy guess_the_dj__suggestSong --entry-point suggestSong --runtime nodejs16 --trigger-http --allow-unauthenticated",
+    "deploy:chooseDJ": "gcloud functions deploy guess_the_dj__chooseDJ --entry-point chooseDJ --runtime nodejs16 --trigger-http --allow-unauthenticated",
+    "deploy:guessDJ": "gcloud functions deploy guess_the_dj__guessDJ --entry-point guessDJ --runtime nodejs16 --trigger-http --allow-unauthenticated",
+    "deploy:revealDJ": "gcloud functions deploy guess_the_dj__revealDJ --entry-point revealDJ --runtime nodejs16 --trigger-http --allow-unauthenticated"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/storage": "^5.18.2"
+    "@google-cloud/storage": "^5.18.2",
+    "dayjs": "^1.10.7"
   },
   "description": ""
 }
