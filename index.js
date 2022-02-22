@@ -41,7 +41,8 @@ const deleteFile = async (filename) => {
 };
 
 const fileExists = async (filename) => {
-  return await storage.bucket(BUCKET_NAME).file(filename).exists()[0];
+  const [exists] = await storage.bucket(BUCKET_NAME).file(filename).exists();
+  return exists
 }
 
 
@@ -94,7 +95,7 @@ const getDailySong = async (date) => {
 
 const isDailySongChoosen = async (date) => {
   const fileName = `daily_song_${date}`;
-  return await writeFile(`${APP_FOLDER}/${DAILY_SONG_FOLDER}/${fileName}`, songData);
+  return await fileExists(`${APP_FOLDER}/${DAILY_SONG_FOLDER}/${fileName}`);
 };
 
 const setDailySongRevealed = async (date, user, name) => {
@@ -305,7 +306,7 @@ exports.playSong = async (req, res) => {
 
     // Parse the guess from the given text
     const guessRegex = /\<\@([A-Za-z0-9]+)\|*([A-Za-z0-9\s]*)\>/g;
-    const guessRegexMatches = Array.from(guessStr.matchesAll(guessRegex));
+    const guessRegexMatches = Array.from(guessStr.matchAll(guessRegex));
     if (guessRegexMatches.length < 1 || guessRegexMatches[0].length < 3) {
       throw Error('Invalid guess. Please use the following syntax: `\\dj_guess @username`')
     }
