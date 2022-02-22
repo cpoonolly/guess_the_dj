@@ -245,6 +245,11 @@ exports.playSong = async (req, res) => {
   const {user_id: user, user_name: name} = req.body;
 
   try {
+    // Check if today's dj has been choosen
+    if (!(await isDailySongChoosen())) {
+      throw Error('DJ not choosen yet. Please run `\\dj_choose` to choose today\'s DJ.');
+    }
+
     // Check if today's dj has already been revealed. If yes return who revealed it.
     if (await isDailySongRevealed(today)) {
       const {name: revealedBy} = await getDailySongRevealedBy(today);
