@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gcloud functions deploy guess_the_dj__play --runtime nodejs16 --trigger-http --allow-unauthenticated"
+    "deploy": "./deploy.sh"
   },
   "author": "",
   "license": "ISC",

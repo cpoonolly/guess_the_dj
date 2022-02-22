@@ -1,10 +1,38 @@
+// Imports the Google Cloud client library
+const {Storage} = require('@google-cloud/storage');
+
+// Creates a client
+const storage = new Storage();
+
 /**
- * Responds to any HTTP request.
- *
- * @param {!express:Request} req HTTP request context.
- * @param {!express:Response} res HTTP response context.
+ * Responds to a play request.
  */
-exports.helloWorld = (req, res) => {
-  let message = req.query.message || req.body.message || 'Hello World!';
-  res.status(200).send(message);
+exports.play = (req, res) => {
+  let message = {text: "Hello play"};
+
+  res.status(200).send(JSON.stringify(message));
+};
+
+/**
+ * Responds to a reveal request.
+ */
+ exports.reveal = (req, res) => {
+  let message = {text: "Hello reveal"};
+  res.status(200).send(JSON.stringify(message));
+};
+
+/**
+ * Responds to a submit request.
+ */
+ exports.submit = (req, res) => {
+  let message = {text: "Hello submit"};
+  res.status(200).send(JSON.stringify(message));
+};
+
+/**
+ * Responds to a guess request.
+ */
+ exports.guess = (req, res) => {
+  let message = {text: "Hello guess"};
+  res.status(200).send(JSON.stringify(message));
 };
