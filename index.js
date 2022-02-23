@@ -181,7 +181,7 @@ exports.playSong = async (req, res) => {
   const {user_id: user, user_name: name, text: url} = req.body;
   await addSongSuggestion(user, name, url);
 
-  res.status(200).send({text: "Song suggestion added!", response_type: 'ephemeral'});
+  res.status(200).send({text: `Song suggestion added!: ${url}`, response_type: 'ephemeral'});
 };
 
 /**
